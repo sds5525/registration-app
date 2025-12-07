@@ -1,12 +1,25 @@
 <?php
-header('Content-Type: text/html; charset=utf-8');
+// submit.php - minimal server-side processor for the registration app
+// Make sure to update $allowed_origin to your GitHub Pages URL (or use '*' for testing)
 
-/* Simple server-side processing and sanitization.
-   Expects: fullName, email, phone, dob, gender, course, agree
-*/
+$allowed_origin = 'https://sds5525.github.io/registration-app/'; 
+// Allow requests from the frontend origin (CORS)
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    $origin = $_SERVER['HTTP_ORIGIN'];
+    if ($origin === $allowed_origin || $allowed_origin === '*') {
+        header("Access-Control-Allow-Origin: $origin");
+        header('Access-Control-Allow-Methods: POST, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type');
+    }
+}
+// Respond to preflight
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
 
-function get_post($k){
-  return isset($_POST[$k]) ? htmlspecialchars(trim($_POST[$k]), ENT_QUOTES, 'UTF-8') : '';
+function get_post($k) {
+    return isset($_POST[$k]) ? htmlspecialchars(trim($_POST[$k]), ENT_QUOTES, 'UTF-8') : '';
 }
 
 $fullName = get_post('fullName');
@@ -18,19 +31,21 @@ $course   = get_post('course');
 $agree    = get_post('agree');
 
 $errors = [];
-if($fullName === '') $errors[] = 'Full name is required.';
-if($email === '') $errors[] = 'Email is required.';
-if($phone === '') $errors[] = 'Phone is required.';
-if($agree !== 'yes') $errors[] = 'Confirmation checkbox not checked.';
+if ($fullName === '') $errors[] = 'Full name is required.';
+if ($email === '') $errors[] = 'Email is required.';
+if ($phone === '') $errors[] = 'Phone is required.';
+if ($agree !== 'yes') $errors[] = 'Confirmation checkbox not checked.';
 
-if(!empty($errors)){
-  echo '<div class="result-card"><h2>Submission error</h2><ul style="color:#c0392b">';
-  foreach($errors as $e){
-    echo '<li>'. $e .'</li>';
-  }
-  echo '</ul><p>Please go back and correct the errors.</p></div>';
-  exit;
+if (!empty($errors)) {
+    echo '<div class="result-card"><h2>Submission error</h2><ul style="color:#c0392b">';
+    foreach ($errors as $e) {
+        echo '<li>' . $e . '</li>';
+    }
+    echo '</ul><p>Please go back and correct the errors.</p></div>';
+    exit;
 }
+
+// Build and return the same result HTML the frontend expects
 ?>
 <div class="result-card" role="status" aria-live="polite">
   <h2>Application Received</h2>
@@ -70,7 +85,6 @@ if(!empty($errors)){
 
   <div class="print-area">
     <button id="printBtn" class="print-btn">Print / Save as PDF</button>
-
     <span style="color:var(--muted); margin-left:10px; display:inline-block">Use the Print button to save or print this summary.</span>
   </div>
 </div>
