@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Online Registration Form</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- jQuery (CDN) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" defer></script>
+
+    <!-- App script -->
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <main class="page" id="pageRoot">
+        <div class="brand">
+            <div class="brand__left">
+                <div class="brand__logo" aria-hidden="true"></div>
+                <div>
+                    <h1 class="brand__title">Online Registration Form</h1>
+                    
+                </div>
+            </div>
+            <!-- theme toggle removed -->
+        </div>
+
+        <div class="layout">
+            <section class="card card--form" aria-labelledby="formHeading">
+                <h2 id="formHeading" class="card__heading">Apply Now</h2>
+
+                <form id="regForm" novalidate class="form-grid">
+                    <div class="form-row">
+                        <label for="fullName">Full name <span class="req">*</span></label>
+                        <input type="text" id="fullName" name="fullName" placeholder="e.g. Jane Doe" required>
+                        <div class="error" data-for="fullName"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="email">Email <span class="req">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                        <div class="error" data-for="email"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="phone">Phone <span class="req">*</span></label>
+                        <input type="tel" id="phone" name="phone" placeholder="+1 555 555 5555" required>
+                        <div class="error" data-for="phone"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="dob">Date of birth</label>
+                        <input type="date" id="dob" name="dob">
+                    </div>
+
+                    <div class="form-row">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender">
+                            <option value="">-- Select Gender --</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="course">Course / Program</label>
+                        <input type="text" id="course" name="course" placeholder="e.g. Computer Science">
+                    </div>
+
+                    <div class="form-row checkbox-row full">
+                        <label class="checkbox">
+                            <input type="checkbox" id="agree" name="agree">
+                            <span>I confirm that the above information is correct.</span>
+                        </label>
+                        <div class="error" data-for="agree"></div>
+                    </div>
+
+                    <div class="form-actions full" style="flex-direction:column; gap:10px;">
+                        <button type="submit" id="submitBtn" class="btn btn-primary">Submit Application</button>
+                        <!-- Clear form button placed under submit -->
+                        <button type="button" id="clearBtn" class="btn btn-secondary" aria-label="Clear the form">Clear
+                            form</button>
+                    </div>
+                </form>
+            </section>
+
+            <section id="resultArea" class="card card--result" aria-live="polite">
+                <!-- Server response will be injected here -->
+                <div class="placeholder">
+                    <svg width="72" height="72" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                        <path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"
+                            stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"
+                            opacity="0.18" />
+                        <path d="M8 11l2.5 3L16 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"
+                            stroke-linejoin="round" opacity="0.18" />
+                    </svg>
+                    <p class="placeholder__text">Submission results will appear here after you press Submit. Use the
+                        Print button to save as PDF.</p>
+                </div>
+            </section>
+        </div>
+
+      
+    </main>
+</body>
+
+</html>
